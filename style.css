@@ -1,0 +1,31 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  .card {
+    border-radius: 12px;
+  }
+  
+  .card-header {
+    font-weight: 600;
+    font-size: 1rem;
+  }
+  
+  button {
+    font-weight: 500;
+  }
+  
+  input:disabled {
+    background-color: #f9f9f9;
+    font-weight: bold;
+    color: #444;
+  }
+  
+  .table th, .table td {
+    vertical-align: middle;
+  }
+  
+  .form-group-time-quantum {
+    display: none;
+  }
+  

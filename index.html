@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Schedulink - CPU Scheduling Simulator</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"/>
+  <link rel="stylesheet" href="style.css"/>
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+  <script src="app.js"></script>
+</head>
+<body class="bg-light">
+
+  <header class="bg-white border-bottom mb-4 shadow-sm">
+    <div class="container">
+      <h2 class="py-3 text-primary text-center">Schedulink - CPU Scheduling Simulator</h2>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="row mb-4">
+      <!-- Input Section -->
+      <div class="col-md-8">
+        <div class="card shadow-sm">
+          <div class="card-header bg-primary text-white">Add Process</div>
+          <div class="card-body">
+            <table class="table table-bordered table-sm mb-3" id="tblProcessList">
+              <thead class="thead-light">
+                <tr>
+                  <th>Process ID</th>
+                  <th>Arrival Time</th>
+                  <th>Burst Time</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+            <div class="form-row">
+              <div class="form-group col">
+                <input class="form-control" type="number" min="0" id="processID" placeholder="Process ID" />
+              </div>
+              <div class="form-group col">
+                <input class="form-control" type="number" min="0" id="arrivalTime" placeholder="Arrival Time" />
+              </div>
+              <div class="form-group col">
+                <input class="form-control" type="number" min="0" id="burstTime" placeholder="Burst Time" />
+              </div>
+              <div class="form-group col">
+                <button class="btn btn-success btn-block" id="btnAddProcess">Add</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Algorithm Selector -->
+      <div class="col-md-4">
+        <div class="card shadow-sm">
+          <div class="card-header bg-primary text-white">Scheduling Settings</div>
+          <div class="card-body">
+            <div class="form-group">
+              <label for="algorithmSelector">Select Algorithm</label>
+              <select class="form-control" id="algorithmSelector">
+                <option value="optFCFS">First Come First Served</option>
+                <option value="optSJF">Shortest Job First</option>
+                <option value="optSRTF">Shortest Remaining Time First</option>
+                <option value="optRR">Round Robin</option>
+              </select>
+            </div>
+            <div class="form-group form-group-time-quantum">
+              <label>Time Quantum</label>
+              <input class="form-control" type="number" id="timeQuantum" min="1" max="10"/>
+            </div>
+            <button class="btn btn-primary btn-block mt-3" id="btnCalculate">Calculate</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Results Section -->
+    <div class="row">
+      <div class="col-md-9">
+        <div class="card shadow-sm">
+          <div class="card-header bg-dark text-white">Scheduling Results</div>
+          <div class="card-body">
+            <table class="table table-bordered table-hover" id="tblResults">
+              <thead class="thead-light">
+                <tr>
+                  <th>Process ID</th>
+                  <th>Arrival Time</th>
+                  <th>Burst Time</th>
+                  <th>Completed Time</th>
+                  <th>Waiting Time</th>
+                  <th>Turnaround Time</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Metrics Panel -->
+      <div class="col-md-3">
+        <div class="card shadow-sm">
+          <div class="card-header bg-secondary text-white">Performance Metrics</div>
+          <div class="card-body">
+            <div class="form-group">
+              <label>Avg Turnaround Time</label>
+              <input class="form-control" id="avgTurnaroundTime" type="number" disabled />
+            </div>
+            <div class="form-group">
+              <label>Avg Waiting Time</label>
+              <input class="form-control" id="avgWaitingTime" type="number" disabled />
+            </div>
+            <div class="form-group">
+              <label>Throughput</label>
+              <input class="form-control" id="throughput" type="number" disabled />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="text-center text-muted py-3 mt-5">
+    <small>&copy;Schedulink | Pre-Final Year PBL Project</small>
+  </footer>
+
+</body>
+</html>
