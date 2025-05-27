@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Schedulink - CPU Scheduling Simulator</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"/>
+  <link rel="stylesheet" href="style.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+  <script src="app.js" defer></script>
+  <style>
+    #showAnimatedBtn {
+      display: none;
+      margin-bottom: 15px;
+    }
+  </style>
+</head>
+<body class="bg-light">
+
+<header class="bg-white border-bottom mb-4 shadow-sm">
+  <div class="container">
+    <h2 class="py-3 text-primary text-center m-0">Schedulink - CPU Scheduling Simulator</h2>
+  </div>
+</header>
+
+<div class="container">
+  <div class="row mb-4">
+    <div class="col-md-8">
+      <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white">Add Process</div>
+        <div class="card-body">
+          <table class="table table-bordered table-sm mb-3" id="tblProcessList">
+            <thead class="thead-light">
+              <tr>
+                <th>PID</th>
+                <th>Arrival</th>
+                <th>Burst</th>
+                <th class="priority-header d-none">Priority</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+          <div class="form-row">
+            <div class="form-group col">
+              <input class="form-control" type="number" min="0" id="processID" placeholder="Process ID"/>
+            </div>
+            <div class="form-group col">
+              <input class="form-control" type="number" min="0" id="arrivalTime" placeholder="Arrival Time"/>
+            </div>
+            <div class="form-group col">
+              <input class="form-control" type="number" min="1" id="burstTime" placeholder="Burst Time"/>
+            </div>
+            <div class="form-group col priority-group d-none">
+              <input class="form-control" type="number" min="0" id="priority" placeholder="Priority"/>
+            </div>
+            <div class="form-group col">
+              <button class="btn btn-success btn-block" id="btnAddProcess">Add</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white">Settings</div>
+        <div class="card-body">
+          <div class="form-group">
+            <label for="algorithmSelector">Select Algorithm</label>
+            <select class="form-control" id="algorithmSelector">
+              <option value="FCFS">First Come First Served</option>
+              <option value="SJF">Shortest Job First</option>
+              <option value="SRTF">Shortest Remaining Time First</option>
+              <option value="RR">Round Robin</option>
+              <option value="PriorityNP">Priority (Non-preemptive)</option>
+              <option value="PriorityP">Priority (Preemptive)</option>
+              <option value="HRRN">HRRN</option>
+            </select>
+          </div>
+          <div class="form-group d-none" id="quantumGroup">
+            <label>Time Quantum</label>
+            <input class="form-control" type="number" id="timeQuantum" min="1" max="10"/>
+          </div>
+          <button class="btn btn-primary btn-block mt-3" id="btnCalculate">Calculate</button>
+          <button class="btn btn-danger btn-block mt-2" id="btnReset">Reset</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-2">
+    <div class="col text-right">
+      <a id="showAnimatedBtn" href="animation.html" class="btn btn-info">Show Animated View</a>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-9">
+      <div class="card shadow-sm">
+        <div class="card-header bg-dark text-white">Scheduling Results</div>
+        <div class="card-body">
+          <table class="table table-bordered table-hover" id="tblResults">
+            <thead class="thead-light">
+              <tr>
+                <th>PID</th><th>Arrival</th><th>Burst</th><th>Completed</th><th>Waiting</th><th>Turnaround</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+
+          <div id="ganttChartContainer" class="mt-4" style="display:none;">
+            <h5>Gantt Chart</h5>
+            <div id="ganttChart" class="d-flex border border-secondary rounded p-2 overflow-auto"></div>
+          </div>
+
+          <div id="ganttAnimationContainer" class="mt-4" style="display:none;">
+            <h5>Execution Animation</h5>
+            <div id="ganttAnimation" class="d-flex border border-dark rounded p-2 overflow-auto position-relative"></div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card shadow-sm">
+        <div class="card-header bg-secondary text-white">Performance</div>
+        <div class="card-body">
+          <div class="form-group">
+            <label>Avg Turnaround Time</label>
+            <input class="form-control" id="avgTurnaroundTime" type="number" disabled/>
+          </div>
+          <div class="form-group">
+            <label>Avg Waiting Time</label>
+            <input class="form-control" id="avgWaitingTime" type="number" disabled/>
+          </div>
+          <div class="form-group">
+            <label>Throughput</label>
+            <input class="form-control" id="throughput" type="number" disabled/>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer class="text-center text-muted py-3 mt-5">
+  <small>&copy; 2025 Schedulink | PBL Project</small>
+</footer>
+
+</body>
+</html>

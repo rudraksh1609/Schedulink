@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CPU Scheduling Animation</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+  <script src="animation.js" defer></script>
+</head>
+<body class="bg-light">
+
+<header class="bg-white border-bottom mb-4 shadow-sm">
+  <div class="container text-center">
+    <h2 class="py-3 text-primary">CPU Scheduling Animation</h2>
+    <div class="mb-3 d-flex justify-content-center gap-2">
+      <button id="replayBtn" class="btn btn-primary btn-sm">Replay Animation</button>
+      <a href="index.html" class="btn btn-secondary btn-sm">Back to Simulator</a>
+    </div>
+  </div>
+</header>
+
+<div class="container">
+  <div class="row mb-3">
+    <div class="col-md-4">
+      <h5>Ready Queue</h5>
+      <div id="readyQueue" class="queue"></div>
+    </div>
+    <div class="col-md-4">
+      <h5>CPU Execution</h5>
+      <div id="cpuExecution" class="cpu"></div>
+      <div class="progress mt-3">
+        <div id="progressBar" class="progress-bar" role="progressbar" style="width: 0%;"></div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <h5>Waiting Queue</h5>
+      <div id="waitingQueue" class="queue"></div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col text-center">
+      <h5>Simulation Time: <span id="timeDisplay">0</span>s</h5>
+    </div>
+  </div>
+</div>
+
+<footer class="text-center text-muted py-3 mt-5">
+  <small>&copy; 2025 CPU Scheduling Animation</small>
+</footer>
+
+</body>
+</html>
