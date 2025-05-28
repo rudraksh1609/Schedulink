@@ -11,7 +11,7 @@ $(document).ready(function () {
     $('#quantumGroup').addClass('d-none');
   }
 
-  if (selected === 'PriorityNP' || selected === 'PriorityP' || selected === 'HRRN') {
+  if (selected === 'PriorityNP' || selected === 'PriorityP') {
     $('.priority-group').removeClass('d-none');
     $('.priority-header').removeClass('d-none');
   } else {
