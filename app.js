@@ -412,11 +412,12 @@ function runGanttAnimation(timeline) {
   $('#ganttAnimation').empty();
 
   const colors = ['#FF6F61', '#6B5B95', '#88B04B', '#FFA07A', '#F7CAC9', '#92A8D1', '#955251'];
-  const idleColor = '#b0bec5'; // same vibrant gray-blue for IDLE
+  const idleColor = '#b0bec5'; // vibrant gray-blue for IDLE
 
   // Insert IDLE blocks
   const timelineWithIdle = addIdleBlocks(timeline);
 
+  // Create process blocks in DOM
   timelineWithIdle.forEach((block, i) => {
     const isIdle = block.pid === null;
     const bgColor = isIdle ? idleColor : colors[i % colors.length];
@@ -429,7 +430,7 @@ function runGanttAnimation(timeline) {
     `);
   });
 
-  // Flatten timeline for animation step-by-step highlighting
+  // Flatten timeline for step-by-step animation
   const flatTimeline = [];
   timelineWithIdle.forEach((block, idx) => {
     for (let i = 0; i < block.duration; i++) {
@@ -438,16 +439,31 @@ function runGanttAnimation(timeline) {
   });
 
   let current = 0;
+  let prevIndex = null;
+
   const interval = setInterval(() => {
-    if (current > 0) {
-      $(`#anim-p${flatTimeline[current - 1]}`).removeClass('active');
-    }
     if (current >= flatTimeline.length) {
       clearInterval(interval);
+      // Remove last active highlight if any
+      if (prevIndex !== null) {
+        $(`#anim-p${prevIndex}`).removeClass('active');
+      }
       return;
     }
-    $(`#anim-p${flatTimeline[current]}`).addClass('active');
+
+    const currentIndex = flatTimeline[current];
+
+    // Remove active from previous block only if different block
+    if (prevIndex !== null && prevIndex !== currentIndex) {
+      $(`#anim-p${prevIndex}`).removeClass('active');
+    }
+
+    // Add active to current block
+    $(`#anim-p${currentIndex}`).addClass('active');
+
+    prevIndex = currentIndex;
     current++;
   }, 1000);
 }
+
 });
