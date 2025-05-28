@@ -351,6 +351,17 @@ function addIdleBlocks(timeline) {
   if (timeline.length === 0) return [];
 
   const result = [];
+
+  // Check for idle time at the beginning
+  if (timeline[0].start > 0) {
+    result.push({
+      pid: null,
+      start: 0,
+      end: timeline[0].start,
+      duration: timeline[0].start
+    });
+  }
+
   for (let i = 0; i < timeline.length; i++) {
     const current = timeline[i];
     result.push(current);
@@ -361,7 +372,7 @@ function addIdleBlocks(timeline) {
       if (next.start > current.end) {
         // Insert an IDLE block for the gap
         result.push({
-          pid: null,                  // no process id for idle
+          pid: null,
           start: current.end,
           end: next.start,
           duration: next.start - current.end
@@ -369,8 +380,10 @@ function addIdleBlocks(timeline) {
       }
     }
   }
+
   return result;
 }
+
 
 // Gantt Chart render with IDLE blocks
 function renderGanttChart(timeline) {
